@@ -1,3 +1,4 @@
+
 name: Build Diabetes Emergency APK
 
 on:
@@ -25,9 +26,14 @@ jobs:
           gradle-version: '8.9'
 
       - name: Setup Android SDK
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 12266719
+          packages: |
+            platform-tools
+            platforms;android-35
+            build-tools;35.0.0
+          accept-android-sdk-licenses: true
 
       - name: Extract project
         run: |
@@ -45,3 +51,4 @@ jobs:
         with:
           name: Diabetes-Emergency-APK
           path: project/**/build/outputs/apk/debug/*.apk
+          
